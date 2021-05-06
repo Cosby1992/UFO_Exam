@@ -282,6 +282,27 @@ visualize these numbers as boxplots and compare the results.
 As we take a look at the results of the benchmark we focus on the median of both the resultsets. 
 Since the optimized median is only at 300 ns, we can easily calculate that this is only a 0.029123\%, in a combined runtime for the two median.
 
+when looking at the complexity of both methods, we know that a linear operation is defined as O(n).
+A binary search has a complexity of O(log n). 
+
+Now if we look at the results and complexity where n = 500000, which is the same size as our queue.
+\begin{table}%[hbt!] 
+    \centering
+    \begin{tabular}{ |l|r|r| }
+        \hline
+                        & \thead{Results}   & \thead{n = 500000} \\ 
+        \hline
+        \thead{Linear O(n)}	& 1030100.000000 ns & 500000 elements	              \\
+        \thead{Binary O(log n)}	& 300.000000 ns	    & 5.69897000434	         \\
+        \thead{\% difference}	    & 99.970877 \%	        & 99.998860 \%	       \\
+        \hline
+    \end{tabular}
+    \caption{Result vs. complexity} 
+    \label{tab:ResultNComplexity}
+\end{table}
+
+It is visible that our result have increased in performance, with aproximately the same amount as expected when looking at the complexity in accordance to "big O".
+%https://www.geeksforgeeks.org/linear-search/
 
 
 \begin{tikzpicture}
