@@ -3,3 +3,6 @@ latex/exam.aux
 latex/exam.fdb_latexmk
 latex/exam.fls
 latex/exam.synctex.gz
+latex/exam.bbl
+latex/exam.blg
+latex/exam.lstsettings.aux
