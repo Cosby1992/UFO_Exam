@@ -1,5 +1,12 @@
 # Fdb version 3
-["pdflatex"] 1620310168 "c:/Users/Gamer/Documents/VCS/UFO/UFO_Exam/latex/exam.tex" "exam.pdf" "exam" 1620310168
+["bibtex exam"] 1620311952 "exam.aux" "exam.bbl" "exam" 1620311953
+  "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/unsrt.bst" 1291868336 18030 1376b4b231b50c66211e47e42eda2875 ""
+  "exam.aux" 1620311953 2067 aa1486918a9702f17755cf1693b8a9f8 "pdflatex"
+  "references.bib" 1620311567 1205 62f2bebef0acf4c915efc13334f95827 ""
+  (generated)
+  "exam.blg"
+  "exam.bbl"
+["pdflatex"] 1620311953 "c:/Users/Gamer/Documents/VCS/UFO/UFO_Exam/latex/exam.tex" "exam.pdf" "exam" 1620311953
   "C:/Users/Gamer/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1619440468 9524577 e67a84c226c1b43b64439843687ad9bf ""
   "C:/Users/Gamer/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1619440484 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -15,6 +22,7 @@
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1247596666 32080 340ef9bf63678554ee606688e7b5339d ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb" 1247596667 32298 c6d25bb16d1eac01ebdc6d7084126a1e ""
@@ -22,7 +30,11 @@
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1247596666 32362 bc3f3eec7ab7d65fe700963d4017d32c ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1247596667 31809 8670ca339bf94e56da1fc21c80635e2a ""
+  "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1247596667 32734 69e00a6b65cedb993666e42eedb3d48f ""
+  "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1247596667 32762 7fee39e011c23b3589931effd97b9702 ""
+  "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1247596666 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
+  "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1247596667 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1247596667 31099 342ef5a582aacbd3346f3cf4579679fa ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mkii" 1580393758 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls" 1610124346 20145 aad8c3dd3bc36e260347b84002182bc2 ""
@@ -36,12 +48,13 @@
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstlang1.sty" 1585223736 207561 bae5b2d457283e99567249c1990510be ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.sty" 1585223735 79106 ee25ce086f4a79d8cf73bac6f94c02a5 ""
   "C:/Users/Gamer/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1463135581 57049 34128738f682d033422ca125f82e5d62 ""
-  "c:/Users/Gamer/Documents/VCS/UFO/UFO_Exam/latex/exam.tex" 1620310167 5208 2cbcdc6398944ebf622c0378807ec974 ""
-  "exam.aux" 1620310168 1626 f207d9023558b98ac12eaad5d4374c74 "pdflatex"
-  "exam.tex" 1620310167 5208 2cbcdc6398944ebf622c0378807ec974 ""
+  "c:/Users/Gamer/Documents/VCS/UFO/UFO_Exam/latex/exam.tex" 1620311951 7922 2029cc8a9344ef71d879ccdf5af63196 ""
+  "exam.aux" 1620311953 2067 aa1486918a9702f17755cf1693b8a9f8 "pdflatex"
+  "exam.bbl" 1620311953 226 950b9be99878fe1ab69df74ee5d52981 "bibtex exam"
+  "exam.tex" 1620311951 7922 2029cc8a9344ef71d879ccdf5af63196 ""
   "lstsettings.tex" 1620304935 1084 a30fa67e4508664b68ddd37118440b4d ""
   (generated)
+  "exam.aux"
   "exam.log"
   "exam.pdf"
   "lstsettings.aux"
-  "exam.aux"

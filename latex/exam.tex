@@ -14,17 +14,16 @@
 %     Big O notation
 %     Måske en bedre måde at lave den på, eller i hvert fald ideer til forbedringer
 
-\author{Anders Jacobsen, Dima Karaush}
-
 % The Dark Side of Java's PriorityQueue
 % The Missing Piece in Java's PriorityQueue
 \title{Java PriorityQueue Class} 
+
+\author{Anders Jacobsen, Dima Karaush}
 
 \include{lstsettings}
 
 \begin{document}
 \maketitle
-
 
 \begin{abstract}
     Java's PriorityQueue class have a bottleneck when you need to update values in the queue.
@@ -68,16 +67,76 @@ Problemfomulering
 
 \section{Analysis}
 \subsection{Benchmark Method} % Cosby
+This subsection will cover how we prepared and executed our benchmarks.
+It will also touch the subject of what we are timing in the two implementations
+of a PriorityQueue. We've followed Peter Sestofts approach to microbenchmarking in 
+Java \cite{microbenchmarks}, we've used a combination of Mark5 and Mark3 
+benchmarks with a few twists here and there. 
+To make benchmarks, a Timer class is nessesary. We've designed the simplest
+version possible to avoid interference from calculations in the Timer class.
+
+
+\begin{lstlisting}[caption={Simple Timer class implementation},label={lst:timerclass}]
+    public class Timer {
+        private long start;
+
+        public void start() {
+            start = System.nanoTime();
+        }
+
+        public long step() {
+            return System.nanoTime() - start;
+        }
+    }
+\end{lstlisting}
+
+This implementation enables us to process the times as nano seconds after 
+the benchmarks and also to easily restart the timer.
+
+In addition to the Timer class we have also implemented a TimerTracker class.
+This class only consists of two lists that can contain the warmup and real 
+benchmark times. Also a method for writing the optained times to a CSV\footnote{Comma Seperated Values Filestructure} file.
+The CSV files will be used to explore the data later. 
+
+%How do we measure the times
+Measurements in the benchmark is done only on the time it takes to update 
+a value in the PriorityQueue. Again we follow Peter Sestofts microbenchmarking 
+techniques. In listing \ref{lst:benchmarkiterations} we run a number of warmup iterations before running the
+actual benchmark. This is to fight the battle agains Java's JIT\footnote{Just In Time} 
+compiler as described in Peter Sestofts article. In the listing the method 
+\lstinline{pQueueRun()} is running the benchmark, this will be descriped 
+in section \ref{sec:javabenchmark}. The \lstinline{tracker.addTime(long time)} 
+simply adds a time to a list that will later be written to a CSV file.
+  
+
+\begin{lstlisting}[caption={Benchmark iterations}, label={lst:benchmarkiterations}]
+    private static void benchmarkPriorityQueue(int warmupIterations, int iterations, TimeTracker tracker) {
+        // Printing removed for simplicity
+        // Warmup
+        for (int i = 0; i < warmupIterations; i++) {
+            tracker.addWarmupTime(pQueueRun());
+        }
+
+        System.out.println("Warmup finished - moving to real benchmark");
+
+        // Benchmark
+        for (int i = 0; i < iterations; i++) {
+            tracker.addTime(pQueueRun());
+        }
+    }
+\end{lstlisting}
+
 %remember ref to pdf (peter sestoft i disc)
 %Something about out Timer, TimerTracker class
 %How do we measure the times
 %What do we time (ONLY UPDATE)
 %Why do we do as we do
 \subsection{Benchmark of Java's priorityQueue} % Dima
+\label{sec:javabenchmark}
 %Describe the method for updating (LINEAR WITH ITERATOR)
 To understand the example that we are using we have to take a look at how we use our queue.
 
-\begin{lstlisting}[caption={Populating the queue},label={lst:benchmark_original}]
+\begin{lstlisting}[caption={Populating the queue},label={lst:Populating_the_queue}]
     PriorityQueue<Node> pQueue = new PriorityQueue<>(QUEUE_LENGTH, nodeComp);
 
     // Filling the queue with Nodes
@@ -92,7 +151,7 @@ the nodes do not have any special values. But we do add a unique values so that 
 When were looking at updating a node in Java's priority queue. There is no method to retrieve the wanted node from the list.
 Therefore we use a Iterator to list through every node in our list until we find a match.
 
-\begin{lstlisting}[caption={Finding the node},label={lst:benchmark_original}]
+\begin{lstlisting}[caption={Finding the node},label={lst:Finding_the_node}]
     Iterator<Node> it = pQueue.iterator();
 
     while (it.hasNext()) {
@@ -130,6 +189,7 @@ Answer our questions and possibly introduction
 % since our priority queue inserts elements linear, therefore it's much 
 % slower at everything else in Java's PriorityQueue. 
 
+\bibliographystyle{unsrt}
+\bibliography{references}
 
-    
 \end{document}
