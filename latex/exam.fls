@@ -118,6 +118,7 @@ INPUT C:\Users\Cosby\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx9.tfm
 INPUT C:\Users\Cosby\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Users\Cosby\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Users\Cosby\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
+INPUT C:\Users\Cosby\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 OUTPUT c:\code\Exploration and Presentation - Exam Task\latex\exam.pdf
 INPUT C:\Users\Cosby\AppData\Local\MiKTeX\pdftex\config\pdftex.map
 INPUT c:\code\Exploration and Presentation - Exam Task\latex\exam.aux

@@ -56,18 +56,45 @@ What will be in this article
 What will not be included in this article
 
 \section{Problem}
+\subsection{Background}
+% There's no way to find an element in a heap, but to go through all the 
+% elements, though pruning (Stop searching if a bigger node is reached) is possible. 
+% Therefore a list will be used to make search possible
+% 
+\subsection{Problem Statement}
 The questions we will try to solve 
 Problemfomulering
 
+
 \section{Analysis}
-Something about how Java PriorityQueue works now
-That it's missing an "update-method". 
+\subsection{Benchmark Method} % Cosby
+%remember ref to pdf (peter sestoft i disc)
+%Something about out Timer, TimerTracker class
+%How do we measure the times
+%What do we time (ONLY UPDATE)
+%Why do we do as we do
+\subsection{Benchmark of Java's priorityQueue} % Dima
+% Describe the method for updating (LINEAR WITH ITERATOR)
+% Show a desciption of our numbers
+% Show boxplot of times
+\subsection{Update Method} % Dima
+% Descripe how we implemented our search 
+% Descripe that we are NOT using a heap and maybe that our 
+% PriorityQueue is MUCH slower than java, in everything but the update method
+\subsection{Benchmark of updateable PriorityQueue} % Cosby
+% Describe the method for updating (LINEAR WITH ITERATOR)
+% Show a desciption of our numbers
+% Show boxplot of times
+\subsection{Comparisson of PriorityQueues} % Dima
+% How much faster is the method than Javas
+% Boxplots with comparrison
 
-How can you make and update method
-How much would you gain (compared to linear update on the fly)?
-
-\section{Conclusion}
+\section{Conclusion} % Cosby
 Answer our questions and possibly introduction
+% Something about how much faster our queue is at updating
+% Something about how our results are to be taken with a grain of salt, 
+% since our priority queue inserts elements linear, therefore it's much 
+% slower at everything else in Java's PriorityQueue. 
 
 
     
