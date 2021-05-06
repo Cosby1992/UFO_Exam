@@ -1,8 +1,9 @@
-\documentclass{article}
+\documentclass{report}
 \usepackage{pgf-pie}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{makecell}
+\usepackage{placeins}
 \usepackage{graphicx}
 \graphicspath{ {./resources/} }
 
@@ -34,7 +35,7 @@
     Java's PriorityQueue class have a bottleneck when you need to update values in the queue.
     Depending on the use and implementation, Java's PriorityQueue can add serious performance 
     issues when accessing the data not using the poll() method.
-    When updating a value in the queue, performance can be improved by more than 50\% compared 
+    When updating a value in the queue, performance can be improved by more than 90\% compared 
     to Java's PriorityQueue implementation. Implementing your own version might remove this 
     bottleneck from your software. 
 \end{abstract}
@@ -180,9 +181,9 @@ Running the results through a python notebook, we can get a description of the d
 Looking at the mean we can se the that the average time for an update is about 1/1000 th of a second. 
 And the standard devisation is at about +/- 1/10000th of that.
 
-Here we have zoomed in on a boxplot of the data.
+Here we have zoomed in on a boxplot of the data. \ref{img:boxplotorg}
 
-\begin{figure}[hbt!]
+\begin{figure}[ht!]
 \label{img:boxplotorg}
 \includegraphics[width=\textwidth]{boxplotorg}
 \caption{Benchmark boxplot}
@@ -275,22 +276,26 @@ visualize these numbers as boxplots and compare the results.
 \label{sec:comparisson_of_priorityqueues}
 % How much faster is the method than Javas
 As we take a look at the results of the benchmark we focus on the median of both the resultsets. 
-Since the optimized median is only at 300 ns, we can easily calculate that the percent in reduction is at 99.97\%.
+Since the optimized median is only at 300 ns, we can easily calculate that the percent in reduction is at 99.97\%. \ref{fig:pie_chart}
 
-
-
-\begin{tikzpicture}
-    \pie [rotate = 0, radius = 2, text = pin, explode = { 0.2, 0.3, 1}]
-    {99.970877/Oiginal Time, 0.029123/Optimized Time}
-\end{tikzpicture}
-
-% Boxplots with comparrison
-\begin{figure}[h]
-\label{img:boxplot_comparisson}
-\includegraphics[width=\textwidth]{boxplot_comparisson}
-\caption{Comparisson of the the Priorityqueues}
+\begin{figure}[ht]
+    \begin{tikzpicture}
+        \pie[rotate = 0, radius = 1, text = pin, explode = { 0.5, 0.5 }]
+        {99.970877/Oiginal Time, 0.029123/Optimized Time}
+    \end{tikzpicture}
+    \caption{My Empty Figure}
+    \label{fig:pie_chart}
 \end{figure}
 
+
+
+
+% Boxplots with comparrison
+\begin{figure}[ht!]
+\label{img:boxplot_comparisson}
+\includegraphics[width=150pt]{boxplot_comparisson}
+\caption{Comparisson of the the Priorityqueues}
+\end{figure}
 
 \section{Conclusion} % Cosby
 Answer our questions and possibly introduction
