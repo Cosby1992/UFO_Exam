@@ -1,8 +1,5 @@
-./latex/exam.aux
-./latex/exam.bbl
-./latex/exam.blg
-./latex/exam.fdb_latexmk
-./latex/exam.fls
-./latex/exam.log
-./latex/exam.synctex.gz
-./latex/lstsettings.aux
+latex/exam.aux
+latex/exam.aux
+latex/exam.fdb_latexmk
+latex/exam.fls
+latex/exam.synctex.gz
