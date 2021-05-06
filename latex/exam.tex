@@ -145,8 +145,8 @@ To understand the example that we are using we have to take a look at how we use
 \end{lstlisting}
 
 We create a simple priorityQueue that takes nodes as an object. Then we add some nodes that fill up the queue, 
-the nodes do not have any special values. But we do add a unique values so that we are able to distinguish the nodes.
-When were looking at updating a node in Java's priority queue. There is no method to retrieve the wanted node from the list.
+the nodes do not require any special values. But we do add a unique value to each so that we are able to distinguish the nodes from each other.
+When were looking at updating a node in Java's priority queue. There is no method to retrieve a specific node from the list.
 Therefore we use an Iterator to list through every node in our list until we find a match.
 
 \begin{lstlisting}[caption={Finding the node},label={lst:Finding_the_node}]
@@ -164,10 +164,37 @@ Therefore we use an Iterator to list through every node in our list until we fin
     }
 \end{lstlisting}
 
-Notice that we are listing through the queue in a linear way. 
-This is the reason that we are updating the last object in the queue, to simulate a worst case scenario.
+Notice that we are listing through the queue in a linear way, which is not the most efficient way of searching through a list. 
+The worst case scenario is that our node has the highest weight and thus ends in the end of the list. 
+This is also the scenario that we simulate, by updating the node when the \lstinline{if (count == QUEUE_LENGTH - 1)} check is true.
+
 % Show a desciption of our numbers
-As we are running the the benchmark and the times are loaded into the CSV file 5000 times. We can get can get a overview of the 
+As we are running the benchmark and the times are loaded into the CSV file 5000 times. We can get can get an overview of the times that we have saved in the .CSV file.
+Running the results through a python notebook, we can get a description of the data.
+\begin{table}[h]
+\centering
+\begin{tabular}{ |l|r|l| }
+    \hline
+    \thead{count}	& 5000	           & data points \\
+    \hline
+    \thead{mean}	& 1046789.700000   & ns        \\ 
+    \hline
+    \thead{std}	    & 116796.066013	   & ns        \\
+    \hline
+    \thead{min}	    & 844800.000000	   & ns        \\
+    \hline
+    \thead{25\%}	& 973000.000000	   & ns        \\
+    \hline
+    \thead{50\%}	& 1030100.000000   & ns        \\
+    \hline
+    \thead{75\%}	& 1097700.000000   & ns        \\
+    \hline
+    \thead{max}	    & 2193600.000000   & ns        \\
+    \hline
+\end{tabular}
+\end{table}
+
+
 
 
 % Show boxplot of times
