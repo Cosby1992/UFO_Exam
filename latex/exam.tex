@@ -228,38 +228,44 @@ The way we benchmarked our implmentation of the PriorityQueue can be seen on lis
 
 As seen on the listing we have removed the initializing for simplicity in the exapmle. 
 So keep in mind that a new queue and timer are initialized every iteration in the benchmark. 
-In the example it visible that we use our \lstinline{retrieve()} method to get a specific 
+In the example its visible that we use our \lstinline{retrieve()} method to get a specific 
 node from the queue. We then mutate a value on the node, and stop the timer. 
 Afterwards the time is returned. Later in the benchmark, the returned time is being saved in the
 \lstinline{TimerTracker} witch writes it to a CSV file. 
 
 We have explored the data from the CSV file using a Python Notebook. This gave us the 
-following inside. 
+results that can be found on table \ref{tab:updated_times}. Be aware that the times are measured in nano seconds. 
 
-\begin{tabular}{|l|l|}
-    \hline
-    \thead[l]{OS}                      & Microsoft Windows 10 Pro \\ 
-    \hline
-    \thead[l]{OS Version}              & 10.0.19042 N/A Build 19042 \\  
-    \hline
-    \thead[l]{System Type}             & x64-based PC \\
-    \hline
-    \thead[l]{Processor(s)}            & \makecell[l]{Intel® Core™ i7-10700KF Processor, \\ 16M Cache, up to 5.10 GHz} \\
-    \hline
-    \thead[l]{BIOS Version}            & American Megatrends Inc. 1.10, 21-05-2020 \\
-    \hline
-    \thead[l]{Total Physical Memory}   & 32.688 MB \\ 
-    \hline
-    \thead[l]{Disc(s)}                 & \makecell[l]{Force Series™ MP510 980GB M.2 SSD \\ (up to 3480MB/sec sequencial read)} \\
-    \hline
-\end{tabular}
+% [hbt!] for placing the table "right here" in the document 
+% and not float at bottom or top of the page
+\begin{table}%[hbt!] 
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        \thead[l]{Count}        & 5000     \\ 
+        \thead[l]{Mean}         & 409.860000 ns \\  
+        \thead[l]{Std. Dev.}    & 754.987935 ns \\
+        \thead[l]{Min}          & 100.000000 ns \\
+        \thead[l]{25\%}         & 300.000000 ns \\
+        \thead[l]{50\%}         & 300.000000 ns \\ 
+        \thead[l]{75\%}         & 400.000000 ns \\
+        \thead[l]{Max}          & 31800.000000 ns \\
+        \hline
+    \end{tabular}
+    \caption{Key numbers from updated benchmark} 
+    \label{tab:updated_times}
+\end{table}
 
-
+When considering a standard deviation of 754.987935 ns and a mean of 409.86 ns on table \ref{tab:updated_times}.
+We can see that we get much faster and more stable results from the updated algoritm. In the section
+\ref{sec:comparisson_of_priorityqueues} we will
+visualize these numbers as boxplots and compare the results.
 
 
 % Show a desciption of our numbers
 % Show boxplot of times
 \subsection{Comparisson of PriorityQueues} % Dima
+\label{sec:comparisson_of_priorityqueues}
 % How much faster is the method than Javas
 % Boxplots with comparrison
 
