@@ -2,6 +2,9 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{makecell}
+
+\renewcommand\theadfont{\bfseries}
 
 
 % 1’eren er sjov fordi I kan gøre lidt ala det med optimerings-opgaven, 
@@ -98,6 +101,20 @@ This class only consists of two lists that can contain the warmup and real
 benchmark times. Also a method for writing the optained times to a CSV\footnote{Comma Seperated Values Filestructure} file.
 The CSV files will be used to explore the data later. 
 
+\begin{lstlisting}[caption={Benchmark iterations}, label={lst:benchmarkiterations}]
+    private static void benchmarkPriorityQueue(int warmupIterations, int iterations, TimeTracker tracker) {
+        // Printing removed for simplicity
+        // Warmup
+        for (int i = 0; i < warmupIterations; i++) {
+            tracker.addWarmupTime(pQueueRun());
+        }
+        // Benchmark
+        for (int i = 0; i < iterations; i++) {
+            tracker.addTime(pQueueRun());
+        }
+    }
+\end{lstlisting}
+
 %How do we measure the times
 Measurements in the benchmark is done only on the time it takes to update 
 a value in the PriorityQueue. Again we follow Peter Sestofts microbenchmarking 
@@ -107,24 +124,6 @@ compiler as described in Peter Sestofts article. In the listing the method
 \lstinline{pQueueRun()} is running the benchmark, this will be descriped 
 in section \ref{sec:javabenchmark}. The \lstinline{tracker.addTime(long time)} 
 simply adds a time to a list that will later be written to a CSV file.
-  
-
-\begin{lstlisting}[caption={Benchmark iterations}, label={lst:benchmarkiterations}]
-    private static void benchmarkPriorityQueue(int warmupIterations, int iterations, TimeTracker tracker) {
-        // Printing removed for simplicity
-        // Warmup
-        for (int i = 0; i < warmupIterations; i++) {
-            tracker.addWarmupTime(pQueueRun());
-        }
-
-        System.out.println("Warmup finished - moving to real benchmark");
-
-        // Benchmark
-        for (int i = 0; i < iterations; i++) {
-            tracker.addTime(pQueueRun());
-        }
-    }
-\end{lstlisting}
 
 %remember ref to pdf (peter sestoft i disc)
 %Something about out Timer, TimerTracker class
@@ -176,6 +175,52 @@ This is the reason that we are updating the last object in the queue, to simulat
 % PriorityQueue is MUCH slower than java, in everything but the update method
 \subsection{Benchmark of updateable PriorityQueue} % Cosby
 % Describe the method for updating (LINEAR WITH ITERATOR)
+The way we benchmarked our implmentation of the PriorityQueue can be seen on listing \ref{lst:benchmark_of_selfpq}.
+
+\begin{lstlisting}[caption={Benchmark implmentation on our PriorityQueue},label={lst:benchmark_of_selfpq}]
+    private static long pQueueRun() {
+        // Initialization removed for simplicity
+
+        timer.start();
+        Node n = queue.retrieve(new Node(500, 1000, QUEUE_LENGTH-1));
+        n.verticeTo = 101;
+        time = timer.step();
+
+        return time;
+    }
+\end{lstlisting}
+
+As seen on the listing we have removed the initializing for simplicity in the exapmle. 
+So keep in mind that a new queue and timer are initialized every iteration in the benchmark. 
+In the example it visible that we use our \lstinline{retrieve()} method to get a specific 
+node from the queue. We then mutate a value on the node, and stop the timer. 
+Afterwards the time is returned. Later in the benchmark, the returned time is being saved in the
+\lstinline{TimerTracker} witch writes it to a CSV file. 
+
+We have explored the data from the CSV file using a Python Notebook. This gave us the 
+following inside. 
+
+\begin{tabular}{|l|l|}
+    \hline
+    \thead[l]{OS}                      & Microsoft Windows 10 Pro \\ 
+    \hline
+    \thead[l]{OS Version}              & 10.0.19042 N/A Build 19042 \\  
+    \hline
+    \thead[l]{System Type}             & x64-based PC \\
+    \hline
+    \thead[l]{Processor(s)}            & \makecell[l]{Intel® Core™ i7-10700KF Processor, \\ 16M Cache, up to 5.10 GHz} \\
+    \hline
+    \thead[l]{BIOS Version}            & American Megatrends Inc. 1.10, 21-05-2020 \\
+    \hline
+    \thead[l]{Total Physical Memory}   & 32.688 MB \\ 
+    \hline
+    \thead[l]{Disc(s)}                 & \makecell[l]{Force Series™ MP510 980GB M.2 SSD \\ (up to 3480MB/sec sequencial read)} \\
+    \hline
+\end{tabular}
+
+
+
+
 % Show a desciption of our numbers
 % Show boxplot of times
 \subsection{Comparisson of PriorityQueues} % Dima
