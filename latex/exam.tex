@@ -178,27 +178,22 @@ This is also the scenario that we simulate, by updating the node when the \lstin
 % Show a desciption of our numbers
 As we are running the benchmark and the times are loaded into the CSV file 5000 times. We can get can get an overview of the times that we have saved in the .CSV file.
 Running the results through a python notebook, we can get a description of the data.
-\begin{table}[h]
+\begin{table}[hbt!]
 \centering
-\begin{tabular}{ |l|r|l| }
+\begin{tabular}{ |l|r| }
     \hline
-    \thead{count}	& 5000	           & data points \\
-    \hline
-    \thead{mean}	& 1046789.700000   & ns        \\ 
-    \hline
-    \thead{std}	    & 116796.066013	   & ns        \\
-    \hline
-    \thead{min}	    & 844800.000000	   & ns        \\
-    \hline
-    \thead{25\%}	& 973000.000000	   & ns        \\
-    \hline
-    \thead{50\%}	& 1030100.000000   & ns        \\
-    \hline
-    \thead{75\%}	& 1097700.000000   & ns        \\
-    \hline
-    \thead{max}	    & 2193600.000000   & ns        \\
+    \thead{count}	& 5000	                   \\
+    \thead{mean}	& 1046789.700000 ns        \\ 
+    \thead{std}	    & 116796.066013 ns	       \\
+    \thead{min}	    & 844800.000000	ns         \\
+    \thead{25\%}	& 973000.000000	ns         \\
+    \thead{50\%}	& 1030100.000000 ns        \\
+    \thead{75\%}	& 1097700.000000 ns        \\
+    \thead{max}	    & 2193600.000000 ns        \\
     \hline
 \end{tabular}
+    \caption{Key numbers from benchmark} 
+    \label{tab:regular_times}
 \end{table}
 
 
