@@ -31,7 +31,7 @@
 \begin{abstract}
     Java's PriorityQueue class have a bottleneck when you need to update values in the queue.
     Depending on the use and implementation, Java's PriorityQueue can add serious performance 
-    issues when accessing the data using the poll() method.
+    issues when accessing the data not using the poll() method.
     When updating a value in the queue, performance can be improved by more than 50\% compared 
     to Java's PriorityQueue implementation. Implementing your own version might remove this 
     bottleneck from your software. 
@@ -44,28 +44,36 @@ The interest for this topic has grown from an implmentation of a weighted graph
 in Java, which we found had a possible shortcomming for our use-case. The shortcomming was that to update
 a value in the queue, we had to use a linear search (loop) through the queue to update 
 a value within. That is fine on a small scale, but what if need to draw a graph of all the cities in the world? 
-We believe that this has space for optimization and that is why this article explores this subject.
+We believe that this has space for optimization and that is why this article explores this subject.  
 
-
-We are going to use a previously developed \lstinline{Timer} class.  
-
-
-How will we work with the subject
+We plan to use Peter Sestofts Mark5 benchmarking techniques from his article 
+"Microbenchmarks in Java and C\#" \cite{microbenchmarks} to bencnhmark the two 
+PriorityQueues. We will do seperate benchmarking with warmup iterations on 
+each of the implementations. Afterwards we will explore the data using a Python
+Notebook. Then we compare the results to explore our findings. 
 
 
 \section{Scope}
-What will be in this article
-What will not be included in this article
+This article aims to compare the performance between Java's PriorityQueue
+and a PriorityQueue we designed and implemented. The article will only include 
+perfomance comparisson for the task to update an Object within. It will not 
+compare the enqueing or dequeing performance times.
 
 \section{Problem}
 \subsection{Background}
 % There's no way to find an element in a heap, but to go through all the 
 % elements, though pruning (Stop searching if a bigger node is reached) is possible. 
 % Therefore a list will be used to make search possible
-% 
+Java's PriorityQueue is build using a heap, this means that there is no way to quickly find an Object within.
+Therefore it is nessesary to do a linear iteration through the queue. This is made possible by 
+the iterator method inherited in the PriorityQueue class. What we want to explore is how much faster it would 
+be to use fx. binary search in a sorted array representing a queue instead.  
 \subsection{Problem Statement}
-The questions we will try to solve 
-Problemfomulering
+\begin{enumerate}
+    \item How fast is Java's current implmentaion, when the task is to update a value within?
+    \item How fast is our implementation of PriorityQueue using binary search to find and update a value within?
+    \item How do the queues compare in performance?
+\end{enumerate}
 
 
 \section{Analysis}
@@ -75,9 +83,8 @@ It will also touch the subject of what we are timing in the two implementations
 of a PriorityQueue. We've followed Peter Sestofts approach to microbenchmarking in 
 Java \cite{microbenchmarks}, we've used a combination of Mark5 and Mark3 
 benchmarks with a few twists here and there. 
-To make benchmarks, a Timer class is nessesary. We've designed the simplest
+To make benchmarks, a Timer class is nessesary. We've designed the a simplest
 version possible to avoid interference from calculations in the Timer class.
-
 
 \begin{lstlisting}[caption={Simple Timer class implementation},label={lst:timerclass}]
     public class Timer {
