@@ -213,6 +213,11 @@ Notice that we are listing through the queue in a linear way, which is not the m
 The worst case scenario in a linear search is that our node has the highest weight and thus ends in the end of the list. 
 This is also the scenario that we simulate, by updating the node when the check in the code: Listing \ref{lst:Finding_the_node} "\lstinline{if (count == QUEUE_LENGTH - 1)}" is true.
 
+Now a thing to note in our code is the way we insert data in our own priorityque. Since this part wasn't the focus of our article the population of data into the queue happens in a linear way, while also moving each element with a lower priority one by one. 
+Java priorityqueue uses a heap which is alot faster. This results in our code being a lot slower in performance generally speaking.
+
+But alot faster to update the least prioritized node.
+
 % Descripe how we implemented our search 
 % Descripe that we are NOT using a heap and maybe that our 
 % PriorityQueue is MUCH slower than java, in everything but the update method
@@ -275,7 +280,7 @@ visualize these numbers as boxplots and compare the results.
 \label{sec:comparisson_of_priorityqueues}
 % How much faster is the method than Javas
 As we take a look at the results of the benchmark we focus on the median of both the resultsets. 
-Since the optimized median is only at 300 ns, we can easily calculate that the percent in reduction is at 99.97\%.
+Since the optimized median is only at 300 ns, we can easily calculate that this is only a 0.029123\%, in a combined runtime for the two median.
 
 
 
@@ -298,7 +303,7 @@ Answer our questions and possibly introduction
 Updating a value already placed in the queue in Java's PriorityQueue is relatively
 fast. With a median of 1.0301 ms searching for a node in a queue with a length of 
 500000. Our implementation however is comming in much fast at 300 ns, that is a 99.97\% 
-increase in performance. We are not sure if these numbers are precise, since we havn't 
+increase in performance. We are not sure if these numbers are precise, since we haven't 
 tested it on various machines, only one. If we consider linear search has time complexity O(n).
 Measured agains binary search with time complexity O(log(n)), and that we have tested both 
 PriorityQueues in the "worst case scenario" by searching for the last element. This number
