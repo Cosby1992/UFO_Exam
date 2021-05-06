@@ -1,5 +1,6 @@
 latex/exam.aux
 latex/exam.log
+latex/exam.pdf
 latex/exam.fdb_latexmk
 latex/exam.fls
 latex/exam.synctex.gz
@@ -8,3 +9,4 @@ latex/exam.blg
 latex/exam.lstsettings.aux
 latex/exam.blg
 latex/lstsettings.aux
+
