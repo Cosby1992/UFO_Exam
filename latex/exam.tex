@@ -40,7 +40,6 @@
 \end{abstract}
 
 \section{Introduction}
-Why did we choose this subject
 This article will discuss Java's "Build-in" class \lstinline!PriorityQueue!. 
 The interest for this topic has grown from an implmentation of a weighted graph 
 in Java, which we found had a possible shortcomming for our use-case. The shortcomming was that to update
@@ -235,7 +234,7 @@ The way we benchmarked our implmentation of the PriorityQueue can be seen on lis
 \end{lstlisting}
 
 As seen on the listing we have removed the initializing for simplicity in the exapmle. 
-So keep in mind that a new queue and timer are initialized every iteration in the benchmark. 
+So keep in mind that a new queue and timer are initialized every iteration before the benchmark. 
 In the example its visible that we use our \lstinline{retrieve()} method to get a specific 
 node from the queue. We then mutate a value on the node, and stop the timer. 
 Afterwards the time is returned. Later in the benchmark, the returned time is being saved in the
@@ -281,9 +280,17 @@ visualize these numbers as boxplots and compare the results.
 \includegraphics[width=\textwidth]{boxplot_comparisson}
 \caption{Comparisson of the the Priorityqueues}
 \end{figure}
+
+
 \section{Conclusion} % Cosby
 Answer our questions and possibly introduction
 % Something about how much faster our queue is at updating
+Updating a value already placed in the queue in Java's PriorityQueue is relatively
+fast. With a median of 1.0301 ms searching for a node in a queue with a length of 
+500000. But our implementation is comming in much fast at 300 ns, that is a 99.97\% 
+increase in performance. We are not sure if these numbers are precise, since we havn't 
+tested it on various machines, only one. 
+
 % Something about how our results are to be taken with a grain of salt, 
 % since our priority queue inserts elements linear, therefore it's much 
 % slower at everything else in Java's PriorityQueue. 
@@ -292,3 +299,7 @@ Answer our questions and possibly introduction
 \bibliography{references}
 
 \end{document}
+
+% \item How fast is Java's current implmentaion, when the task is to update a value within?
+% \item How fast is our implementation of PriorityQueue using binary search to find and update a value within?
+% \item How do the queues compare in performance?
