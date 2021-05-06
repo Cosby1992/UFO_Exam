@@ -3,6 +3,8 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{makecell}
+\usepackage{graphicx}
+\graphicspath{ {./resources/} }
 
 \renewcommand\theadfont{\bfseries}
 
@@ -268,7 +270,11 @@ visualize these numbers as boxplots and compare the results.
 \label{sec:comparisson_of_priorityqueues}
 % How much faster is the method than Javas
 % Boxplots with comparrison
-
+\begin{figure}[h]
+\label{img:boxplot_comparisson}
+\includegraphics[width=\textwidth]{boxplot_comparisson}
+\caption{Comparisson of the the Priorityqueues}
+\end{figure}
 \section{Conclusion} % Cosby
 Answer our questions and possibly introduction
 % Something about how much faster our queue is at updating
