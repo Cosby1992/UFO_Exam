@@ -155,28 +155,6 @@ To understand the example that we are using we have to take a look at how we use
 
 We create a simple priorityQueue that takes nodes as an object. Then we add some nodes that fill up the queue, 
 the nodes do not require any special values. But we do add a unique value to each so that we are able to distinguish the nodes from each other.
-When were looking at updating a node in Java's priority queue. There is no method to retrieve a specific node from the list.
-Therefore we use an Iterator to list through every node in our list until we find a match.
-
-\begin{lstlisting}[caption={Finding the node},label={lst:Finding_the_node}]
-    Iterator<Node> it = pQueue.iterator();
-
-    timer.start();
-    while (it.hasNext()) {
-        n = it.next();
-        if (count == QUEUE_LENGTH - 1) {
-            n.verticeTo = 80085;
-            time = timer.step();
-            break;
-        }
-        count++;
-    }
-\end{lstlisting}
-
-Notice that we are listing through the queue in a linear way, which is not the most efficient way of searching through a list. 
-The worst case scenario is that our node has the highest weight and thus ends in the end of the list. 
-This is also the scenario that we simulate, by updating the node when the \lstinline{if (count == QUEUE_LENGTH - 1)} check is true.
-
 % Show a desciption of our numbers
 As we are running the benchmark and the times are loaded into the CSV file 5000 times. We can get can get an overview of the times that we have saved in the .CSV file.
 Running the results through a python notebook, we can get a description of the data.
@@ -199,10 +177,43 @@ Running the results through a python notebook, we can get a description of the d
 \end{table}
 
 
+\paragraph{Mean and standard deviation}
+Looking at the mean we can se the that the average time for an update is about 1/1000 th of a second. 
+And the standard devisation is at about +/- 1/10000th of that.
+
+Here we have zoomed in on a boxplot of the data.
+
+\begin{figure}[hbt!]
+\label{img:boxplotorg}
+\includegraphics[width=\textwidth]{boxplotorg}
+\caption{Benchmark boxplot}
+\end{figure}
 
 
 % Show boxplot of times
 \subsection{Update Method} % Dima
+When we are looking at updating a node in Java's priority queue. There is no method to retrieve a specific node from the list.
+That is why we use an Iterator to list through every node in our list until we find a match.
+
+\begin{lstlisting}[caption={Finding the node},label={lst:Finding_the_node}]
+    Iterator<Node> it = pQueue.iterator();
+
+    timer.start();
+    while (it.hasNext()) {
+        n = it.next();
+        if (count == QUEUE_LENGTH - 1) {
+            n.verticeTo = 80085;
+            time = timer.step();
+            break;
+        }
+        count++;
+    }
+\end{lstlisting}
+
+Notice that we are listing through the queue in a linear way, which is not the most efficient way of searching through a list. 
+The worst case scenario in a linear search is that our node has the highest weight and thus ends in the end of the list. 
+This is also the scenario that we simulate, by updating the node when the check in the code: Listing \ref{lst:Finding_the_node} "\lstinline{if (count == QUEUE_LENGTH - 1)}" is true.
+
 % Descripe how we implemented our search 
 % Descripe that we are NOT using a heap and maybe that our 
 % PriorityQueue is MUCH slower than java, in everything but the update method
