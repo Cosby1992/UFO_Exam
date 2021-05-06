@@ -297,9 +297,15 @@ Answer our questions and possibly introduction
 % Something about how much faster our queue is at updating
 Updating a value already placed in the queue in Java's PriorityQueue is relatively
 fast. With a median of 1.0301 ms searching for a node in a queue with a length of 
-500000. But our implementation is comming in much fast at 300 ns, that is a 99.97\% 
-increase in performance. We are not sure if these numbers are precise, since we haven't 
-tested it on various machines, only one. 
+500000. Our implementation however is comming in much fast at 300 ns, that is a 99.97\% 
+increase in performance. We are not sure if these numbers are precise, since we havn't 
+tested it on various machines, only one. If we consider linear search has time complexity O(n).
+Measured agains binary search with time complexity O(log(n)), and that we have tested both 
+PriorityQueues in the "worst case scenario" by searching for the last element. This number
+does make a lot of sense. The future of this reasearch could easely be expanded in multiple ways.
+It could be testet on multiple machines instead of just one. Furthermore, it could be interesting
+to optimize our PriorityQueue to not inserting values in a linear fashion. Hereby making it a 
+real competitor to the Java standard library implementation.
 
 % Something about how our results are to be taken with a grain of salt, 
 % since our priority queue inserts elements linear, therefore it's much 
