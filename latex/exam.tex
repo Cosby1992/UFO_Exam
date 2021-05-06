@@ -134,7 +134,7 @@ simply adds a time to a list that will later be written to a CSV file.
 \subsection{Benchmark of Java's priorityQueue} % Dima
 \label{sec:javabenchmark}
 %Describe the method for updating (LINEAR WITH ITERATOR)
-To understand the example that we are using we have to take a look at how we use our queue.
+To understand the example that we are using we have to take a look at how we use our \lstinline{pQueueRun()}.
 
 \begin{lstlisting}[caption={Populating the queue},label={lst:Populating_the_queue}]
     PriorityQueue<Node> pQueue = new PriorityQueue<>(QUEUE_LENGTH, nodeComp);
@@ -147,13 +147,13 @@ To understand the example that we are using we have to take a look at how we use
 
 We create a simple priorityQueue that takes nodes as an object. Then we add some nodes that fill up the queue, 
 the nodes do not have any special values. But we do add a unique values so that we are able to distinguish the nodes.
-
 When were looking at updating a node in Java's priority queue. There is no method to retrieve the wanted node from the list.
-Therefore we use a Iterator to list through every node in our list until we find a match.
+Therefore we use an Iterator to list through every node in our list until we find a match.
 
 \begin{lstlisting}[caption={Finding the node},label={lst:Finding_the_node}]
     Iterator<Node> it = pQueue.iterator();
 
+    timer.start();
     while (it.hasNext()) {
         n = it.next();
         if (count == QUEUE_LENGTH - 1) {
@@ -168,6 +168,8 @@ Therefore we use a Iterator to list through every node in our list until we find
 Notice that we are listing through the queue in a linear way. 
 This is the reason that we are updating the last object in the queue, to simulate a worst case scenario.
 % Show a desciption of our numbers
+As we are running the the benchmark and the times are loaded into the CSV file 5000 times. We can get can get a overview of the 
+
 
 % Show boxplot of times
 \subsection{Update Method} % Dima
