@@ -46,7 +46,7 @@ This article will discuss Java's "build-in" class \lstinline!PriorityQueue!.
 The interest for this topic has grown from an implmentation of a weighted graph 
 in Java, which we found had a possible shortcomming for our use-case. To update
 a value in the queue, we had to use a linear search (loop) through the queue. 
-That is fine on a small scale, but a complexity of O(n) can make upscaling a dificult task. 
+That is fine on a small scale, but a complexity of O(n) can make upscaling a difficult task. 
 We believe this can be optimized and that is why this article explores this subject.  
 
 We plan to use Peter Sestofts Mark5 benchmarking techniques from his article 
@@ -320,16 +320,16 @@ Now if we compare the results and complexities where n = 500000, which is the sa
     \label{tab:ResultNComplexity}
 \end{table}
 
-It is visible that our result have increased in performance, with aproximately the same amount as expected when looking at the complexity in accordance to the big O notation.
+It is visible that our result have increased in performance, with aproximately the same amount as expected when looking at the complexity in accordance to the big O notation on table \ref{tab:ResultNComplexity}.
 %https://www.geeksforgeeks.org/linear-search/
 
 
 
 % Boxplots with comparrison
 \begin{figure}[H]
-\label{img:boxplot_comparisson}
 \includegraphics[width=300pt]{boxplot_comparisson}
 \caption{Comparisson of the the Priorityqueues}
+\label{img:boxplot_comparisson}
 \end{figure}
 
 On figure \ref{img:boxplot_comparisson} it is clear that the results is not only faster 
