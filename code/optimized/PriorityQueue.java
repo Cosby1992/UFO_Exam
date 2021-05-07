@@ -24,30 +24,30 @@ public class PriorityQueue<T extends Comparable<T>> implements Queue<T> {
             return;
         } 
 
-        // search for the pos of the new node and insert the new node
-        for (int i = 0; i < pointer; i++) {
-            if(queue[i].compareTo(node) >= 0){
-                moveFromIndex(i);
-                queue[i] = node;
-                pointer++;
-                return;
-            } 
+        // insert the node using the bubble sort technique
+        queue[pointer++] = node;
+        bubbleInsert(node);
+        return;
+
+    }
+
+    private void bubbleInsert(T node){
+
+        for (int i = pointer-2; i > -1; i--) {
+            if(queue[i].compareTo(node) > 0){
+                swab(i, i+1);
+            } else return;
         }
 
     }
 
-    private void moveFromIndex(int index){
-
-        // index = 3
-        // [1,4,6,9,76,566,890,null,null,null]
-        // when done
-        // [1,4,6,9,9,76,566,890,null,null,null]
-
-        for (int i = pointer-1; i > index-1; i--) {
-            queue[i+1] = queue[i];
-        }
-
+    private void swab(int index1, int index2){
+        T temp = queue[index1];
+        queue[index1] = queue[index2];
+        queue[index2] = temp;
     }
+
+
 
     @Override
     public T dequeue() {
