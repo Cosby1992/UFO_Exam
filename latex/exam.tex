@@ -1,10 +1,11 @@
-\documentclass{report}
+\documentclass{article}
 \usepackage{pgf-pie}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{makecell}
 \usepackage{placeins}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{ {./resources/} }
 
 \renewcommand\theadfont{\bfseries}
@@ -158,7 +159,7 @@ the nodes do not require any special values. But we do add a unique value to eac
 % Show a desciption of our numbers
 As we are running the benchmark and the times are loaded into the CSV file 5000 times. We can get can get an overview of the times that we have saved in the .CSV file.
 Running the results through a python notebook, we can get a description of the data.
-\begin{table}[hbt!]
+\begin{table}[H]
 \centering
 \begin{tabular}{ |l|r| }
     \hline
@@ -183,9 +184,10 @@ And the standard devisation is at about +/- 1/10000th of that.
 
 Here we have zoomed in on a boxplot of the data. \ref{img:boxplotorg}
 
-\begin{figure}[ht!]
+\begin{figure}[H]
+\centering
 \label{img:boxplotorg}
-\includegraphics[width=\textwidth]{boxplotorg}
+\includegraphics[width=150pt]{boxplotorg}
 \caption{Benchmark boxplot}
 \end{figure}
 
@@ -285,7 +287,7 @@ Since the optimized median is only at 300 ns, we can easily calculate that the p
 
 \begin{figure}[ht]
     \begin{tikzpicture}
-        \pie[rotate = 0, radius = 1, text = pin, explode = { 0.5, 0.5 }]
+        \pie[rotate = 0, radius = 1.5, text = pin, explode = { 0.5, 0.5 }]
         {99.970877/Oiginal Time, 0.029123/Optimized Time}
     \end{tikzpicture}
     \caption{My Empty Figure}
@@ -317,9 +319,9 @@ It is visible that our result have increased in performance, with aproximately t
 
 
 % Boxplots with comparrison
-\begin{figure}[ht!]
+\begin{figure}[H]
 \label{img:boxplot_comparisson}
-\includegraphics[width=150pt]{boxplot_comparisson}
+\includegraphics[width=300pt]{boxplot_comparisson}
 \caption{Comparisson of the the Priorityqueues}
 \end{figure}
 
