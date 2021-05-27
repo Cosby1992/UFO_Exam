@@ -2,11 +2,12 @@
 \usepackage{pgf-pie}
 \usepackage{xurl}
 \usepackage{listings}
-\usepackage{xcolor}
+\usepackage{xcolor,colortbl}
 \usepackage{makecell}
 \usepackage{placeins}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{tabstackengine}
 \graphicspath{ {./resources/} }
 
 \renewcommand\theadfont{\bfseries}
@@ -44,14 +45,14 @@
 
 \section{Introduction}
 This article will discuss Java's "build-in" class \lstinline!PriorityQueue!. 
-The interest for this topic has grown from an implmentation of a weighted graph 
-in Java, which we found had a possible shortcomming for our use-case. To update
+The interest for this topic has grown from an implementation of a weighted graph 
+in Java, which we found had a possible shortcoming for our use-case. To update
 a value in the queue, we had to use a linear search (loop) through the queue. 
-That is fine on a small scale, but a complexity of O(n) can make upscaling a difficult task. 
+That is fine on a small scale, but the complexity of O(n) can make upscaling a difficult task. 
 We believe this can be optimized and that is why this article explores this subject.  
 
 We plan to use Peter Sestofts Mark5 benchmarking techniques from his article 
-"Microbenchmarks in Java and C\#" \cite{microbenchmarks} to bencnhmark the two 
+"Microbenchmarks in Java and C\#" \cite{microbenchmarks} to benchnhmark the two 
 PriorityQueue classes. We will do seperate benchmarking with warmup iterations on 
 each of the implementations. Afterwards we will explore the data using a Python
 Notebook. Then we compare the results to explore our findings. 
@@ -63,21 +64,21 @@ The entire project and files can be found on GitHub, the repository is located h
 \section{Scope}
 This article aims to compare the performance between Java's PriorityQueue
 and a PriorityQueue we designed and implemented. The article will only include 
-perfomance comparisson for the task to update an Object within. It will not 
-compare the enqueing or dequeing performance times.
+performance comparison for the task to update an Object within. It will not 
+compare the enqueueing or dequeueing performance times.
 
 \section{Problem}
 \subsection{Background}
 % There's no way to find an element in a heap, but to go through all the 
 % elements, though pruning (Stop searching if a bigger node is reached) is possible. 
 % Therefore a list will be used to make search possible
-Java's PriorityQueue implemented in a heap struckture, this means that there is no way to quickly find an Object within.
-Therefore it is nessesary to do a linear iteration through the queue. This is made possible by 
+Java's PriorityQueue is implemented in a heap structure, this means that there is no way to quickly find an Object within.
+Therefore it is necessary to do a linear iteration through the queue. This is made possible by 
 the iterator method inherited in the PriorityQueue class. What we explore is how much faster it would 
 be to use binary search in a sorted array, where the array is representing a queue instead.  
 \subsection{Problem Statement}
 \begin{enumerate}
-    \item How fast is Java's current implmentaion, when the task is to update a value within?
+    \item How fast is Java's current implementation, when the task is to update a value within?
     \item How fast is our implementation of PriorityQueue using binary search to find and update a value within?
     \item How do the queue implementations compare in performance?
 \end{enumerate}
@@ -85,12 +86,12 @@ be to use binary search in a sorted array, where the array is representing a que
 
 \section{Analysis}
 \subsection{Benchmark Method} % Cosby
-This subsection will cover the preperation and execution of the benchmarks.
+This subsection will cover the preparation and execution of the benchmarks.
 It will also touch the subject of the timings in the two implementations
 of the PriorityQueue class. Peter Sestofts approach to microbenchmarking in 
-Java \cite{microbenchmarks} is used to benchmark the implementaions. A combination of Mark5 and Mark3 
-benchmarks with minor changes is used to generate the timing results. 
-To make benchmarks, a Timer class is nessesary. We've designed the a simplest
+Java \cite{microbenchmarks} is used to benchmark the implementations. A combination of Mark5 and Mark3 
+benchmarks with minor changes are used to generate the timing results. 
+To make benchmarks, a Timer class is necessary. We've designed the a simplest
 version possible to avoid interference from calculations in the Timer class.
 
 \begin{lstlisting}[caption={Simple Timer class implementation},label={lst:timerclass}]
@@ -112,8 +113,8 @@ the benchmarks and also to easily restart the timer.
 
 In addition to the Timer class we have also implemented a TimerTracker class.
 This class only consists of two lists that can contain the warmup and real 
-benchmark times, together with a method for writing the obtained times to a CSV\footnote{Comma Seperated Values Filestructure} file.
-The CSV files will be used to explore the data later. 
+benchmark times, together with a method for writing the obtained times to a CSV\footnote{Comma Separated Values Filestructure} file.
+The CSV files will be used to explore the data later.
 
 \begin{lstlisting}[caption={Benchmark iterations}, label={lst:benchmarkiterations}]
     private static void benchmarkPriorityQueue(int warmupIterations, int iterations, TimeTracker tracker) {
@@ -172,7 +173,7 @@ Now a thing to note in the code is the way data is inserted in our PriorityQueue
 Since this part was not the focus of the article, the population of data into the 
 queue happens in a linear way, while also moving each element with a lower priority 
 one by one. 
-Java priorityqueue uses a heap which is a lot faster. This results in our code being 
+Java’s PriorityQueue uses a heap which is a lot faster. This results in our code being 
 a lot slower in performance for inserting data.
 
 % Descripe how we implemented our search 
@@ -182,9 +183,9 @@ a lot slower in performance for inserting data.
 \subsection{Benchmark of Java's priorityQueue} % Dima
 \label{sec:javabenchmark}
 %Describe the method for updating (LINEAR WITH ITERATOR)
-The initialization and filling of the queue is descibed in listing \ref{lst:Populating_the_queue}. 
+The initialization and filling of the queue is described in listing \ref{lst:Populating_the_queue}. 
 This is an extraction of a code partition from the \lstinline{pQueueRun()} method, 
-which is used to meassure the benchmark times.
+which is used to measure the benchmark times.
 
 \begin{lstlisting}[caption={Populating the queue},label={lst:Populating_the_queue}]
     PriorityQueue<Node> pQueue = new PriorityQueue<>(QUEUE_LENGTH, nodeComp);
@@ -197,30 +198,13 @@ which is used to meassure the benchmark times.
 
 In listing \ref{lst:Populating_the_queue} a simple priorityQueue that takes nodes as an object. 
 The queue is filled with nodes, the nodes do not require any special values. However a unique 
-value is added, so that the nodes a distinguishable.
-% Show a desciption of our numbers
-The benchmark is running 5000 times resulting in 5000 datapoints for exploration. 
-On table \ref{tab:regular_times} an overview of the datapoints are calculated using a Python Notebook.
-\begin{table}[H]
-\centering
-\begin{tabular}{ |l|r| }
-    \hline
-    \thead{count}	& 5000	                   \\
-    \thead{mean}	& 1046789.700000 ns        \\ 
-    \thead{std}	    & 116796.066013 ns	       \\
-    \thead{min}	    & 844800.000000	ns         \\
-    \thead{25\%}	& 973000.000000	ns         \\
-    \thead{50\%}	& 1030100.000000 ns        \\
-    \thead{75\%}	& 1097700.000000 ns        \\
-    \thead{max}	    & 2193600.000000 ns        \\
-    \hline
-\end{tabular}
-    \caption{Key numbers from benchmark} 
-    \label{tab:regular_times}
-\end{table}
+value is added, so that the nodes are distinguishable.
+% Show a description of our numbers
+The benchmark is running 5000 times resulting in 5000 data points for exploration. 
+On table \ref{tab:regular_times} an overview of the data points are calculated using a Python Notebook.
 
 Looking at the mean and standard deviation on table \ref{tab:regular_times} it is 
-visible that the average time for an update is approximately 1.05ms +/- 0.1 ms. 
+visible that the average time for an update is approximately 1046.8 $\mu$s +/- 116.8 $\mu$s. 
 The results are visualized using a boxplot in section \ref{sec:comparisson_of_priorityqueues}.
 
 % Here we have zoomed in on a boxplot of the data. \ref{img:boxplotorg}
@@ -237,7 +221,7 @@ The results are visualized using a boxplot in section \ref{sec:comparisson_of_pr
 
 \subsection{Benchmark of updatable PriorityQueue} % Cosby
 % Describe the method for updating (LINEAR WITH ITERATOR)
-The benchmark of the implmentation of our PriorityQueue can be seen on 
+The benchmark of the implementation of our PriorityQueue can be seen on 
 listing \ref{lst:benchmark_of_selfpq}.
 
 \begin{lstlisting}[caption={Benchmark implmentation on our PriorityQueue},label={lst:benchmark_of_selfpq}]
@@ -258,41 +242,60 @@ So keep in mind that a new queue and timer are initialized every iteration befor
 In the example its visible that we use our \lstinline{retrieve()} method to get a specific 
 node from the queue. We then mutate a value on the node, and stop the timer. 
 Afterwards the time is returned. Later in the benchmark, the returned time is being saved in the
-\lstinline{TimerTracker} witch writes it to a CSV file. 
+\lstinline{TimerTracker} which writes it to a CSV file. 
 
-Data from the CSV file have been explored using a Python Notebook. 
-The results can be found on table \ref{tab:updated_times}. Be aware that the times are measured in nanoseconds. 
+Data from the CSV file has been explored using a Python Notebook. 
+The results can be found on table \ref{tab:updated_times}. Be aware that the times are measured in microseconds. 
 
-% [hbt!] for placing the table "right here" in the document 
-% and not float at bottom or top of the page
-\begin{table}%[hbt!] 
-    \centering
-    \begin{tabular}{|l|r|}
-        \hline
-        \thead[l]{Count}        & 5000     \\ 
-        \thead[l]{Mean}         & 409.860000 ns \\  
-        \thead[l]{Std. Dev.}    & 754.987935 ns \\
-        \thead[l]{Min}          & 100.000000 ns \\
-        \thead[l]{25\%}         & 300.000000 ns \\
-        \thead[l]{50\%}         & 300.000000 ns \\ 
-        \thead[l]{75\%}         & 400.000000 ns \\
-        \thead[l]{Max}          & 31800.000000 ns \\
-        \hline
-    \end{tabular}
-    \caption{Key numbers from updated benchmark} 
-    \label{tab:updated_times}
-\end{table}
-
-The benchmark completed with an average of 409.86 ns +/- 754.987935 ns, this can be seen on table \ref{tab:updated_times}.
-It is clear that much faster and more stable results from the updated algoritm are achieved. 
+The benchmark completed with an average of 0.409 $\mu$s +/- 0.754 $\mu$s, this can be seen on table \ref{tab:updated_times}.
+It is clear that much faster and more stable results from the updated algorithm are achieved. 
 In the section \ref{sec:comparisson_of_priorityqueues} a visualization of the data as 
-boxplots and a comparisson of the results will be discussed.
+box plots and a comparison of the results will be discussed.
 
 
 % Show a desciption of our numbers
 % Show boxplot of times
 \subsection{Comparisson of PriorityQueues} % Dima
 \label{sec:comparisson_of_priorityqueues}
+
+\begin{table}[H]
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{ |m{2cm}|m{2.5cm}| }
+        \hline
+        \thead[l]{Count}	                            & 5000	                                    \\
+        \cellcolor[HTML]{55FF55}\thead[l]{Mean}	        & \cellcolor[HTML]{55FF55}1046.8 $\mu$s     \\ 
+        \cellcolor[HTML]{55FF55}\thead[l]{Std. Dev.}	& \cellcolor[HTML]{55FF55}116.8 $\mu$s	    \\
+        \thead[l]{Min}	                                & 844.8	$\mu$s                              \\
+        \thead[l]{25\%}	                                & 973.0	$\mu$s                              \\
+        \thead[l]{50\%}	                                & 1030.1 $\mu$s                             \\
+        \thead[l]{75\%}	                                & 1097.7 $\mu$s                             \\
+        \thead[l]{Max}	                                & 2193.6 $\mu$s                             \\
+        \hline
+    \end{tabular}
+        \caption{Key numbers from benchmark} 
+        \label{tab:regular_times}
+    }
+    \hfill
+    \parbox{.45\linewidth}{
+    \begin{tabular}{ |m{2cm}|m{2.5cm}| }
+        \hline
+        \thead[l]{Count}                                & 5000                                  \\ 
+        \cellcolor[HTML]{55FF55}\thead[l]{Mean}         & \cellcolor[HTML]{55FF55}0.409 $\mu$s  \\  
+        \cellcolor[HTML]{55FF55}\thead[l]{Std. Dev.}    & \cellcolor[HTML]{55FF55}0.754 $\mu$s  \\
+        \thead[l]{Min}                                  & 0.100 $\mu$s                          \\
+        \thead[l]{25\%}                                 & 0.300 $\mu$s                          \\
+        \thead[l]{50\%}                                 & 0.300 $\mu$s                          \\ 
+        \thead[l]{75\%}                                 & 0.400 $\mu$s                          \\
+        \thead[l]{Max}                                  & 31.800 $\mu$s                         \\
+        \hline
+    \end{tabular}
+        \caption{Key numbers from updated benchmark} 
+        \label{tab:updated_times}
+    }
+\end{table}
+
+
 % How much faster is the method than Javas
 The medians are used to calculate the percent increase in performance and the result is a 99.97\% increase. 
 %Since the optimized median is only at 300 ns, we can easily calculate that the percent in reduction is at 99.97\%.
@@ -309,22 +312,22 @@ These results can be explained by the complexity of both methods. It is known th
 A binary search has a complexity of O(log n). 
 
 Now if we compare the results and complexities where n = 500000, which is the same size as our queues in the benchmark.
-\begin{table}%[hbt!] 
+\begin{table}[H] 
     \centering
     \begin{tabular}{ |l|r|r| }
         \hline
-                        & \thead{Results}   & \thead{n = 500000} \\ 
+                                & \thead{Results}   & \thead{n = 500000} \\ 
         \hline
-        \thead{Linear O(n)}	& 1030100.000000 ns & 500000 elements	              \\
-        \thead{Binary O(log n)}	& 300.000000 ns	    & 5.69897000434	         \\
-        \thead{\% difference}	    & 99.970877 \%	        & 99.998860 \%	       \\
+        \thead{Linear O(n)}	    & 1030.1 $\mu$s     & 500000           \\
+        \thead{Binary O(log n)}	& 0.3 $\mu$s	    & 5.699 	     \\
+        \thead{\% difference}	& 99.970877 \%	    & 99.998860 \%	 \\
         \hline
     \end{tabular}
     \caption{Result vs. complexity} 
     \label{tab:ResultNComplexity}
 \end{table}
 
-It is visible that our result have increased in performance, with aproximately the same amount as expected when looking at the complexity in accordance to the big O notation on table \ref{tab:ResultNComplexity}.
+It is visible that our results have increased in performance, with approximately the same amount as expected when looking at the complexity in accordance with the big O notation on table \ref{tab:ResultNComplexity}.
 %https://www.geeksforgeeks.org/linear-search/
 
 
@@ -339,7 +342,7 @@ It is visible that our result have increased in performance, with aproximately t
 On figure \ref{img:boxplot_comparisson} it is clear that the results is not only faster 
 but also a lot more stable. This is visible from the amount of outliers in the two boxplots. 
 On the machine which was used for benchmarking, Java's PriorityQueue results end up with a
-median of approximately 1 ms with outliers streching a far as to 2 ms. In comparrison to 
+median of approximately 1 ms with outliers stretching as far as to 2 ms. In comparison to 
 our implementation with a median of approximately 300 ns +- 754.987935 ns. The updated 
 PriorityQueue reaches much faster and stable results.  
 
@@ -347,12 +350,12 @@ PriorityQueue reaches much faster and stable results.
 % Something about how much faster our queue is at updating
 Updating a value already placed in the queue in Java's PriorityQueue is relatively
 fast, with a median of 1.0301 ms searching for a node in a queue with a length of 
-500000. Our implementation however is comming in much faster at 300 ns, that is a 99.97\% 
+500000. Our implementation however is coming in much faster at 300 ns, that is a 99.97\% 
 increase in performance. It is not certain that these numbers are precise, since we haven't 
 tested it on various machines, only one. But the performance increase does match the expected result 
 when comparing the two methods complexity using Big O notation. 
-The future of this reasearch could easily be expanded in multiple ways.
-It could be testet on multiple machines instead of just one. Furthermore, it could be interesting
+The future of this research could easily be expanded in multiple ways.
+It could be tested on multiple machines instead of just one. Furthermore, it could be interesting
 to optimize our PriorityQueue to not insert values in a linear fashion. Hereby making it a 
 real competitor to the Java standard library implementation.
 
