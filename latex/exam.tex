@@ -196,14 +196,14 @@ which is used to measure the benchmark times.
     }
 \end{lstlisting}
 
-In listing \ref{lst:Populating_the_queue} a simple priorityQueue that takes nodes as an object. 
+In listing \ref{lst:Populating_the_queue} a simple priorityQueue that takes nodes as an object can be seen. 
 The queue is filled with nodes, the nodes do not require any special values. However a unique 
 value is added, so that the nodes are distinguishable.
 % Show a description of our numbers
 The benchmark is running 5000 times resulting in 5000 data points for exploration. 
 On table \ref{tab:regular_times} an overview of the data points are calculated using a Python Notebook.
 
-Looking at the mean and standard deviation on table \ref{tab:regular_times} it is 
+Looking at the mean and standard deviation on table \ref{tab:regular_times} on page \pageref{tab:regular_times} it is 
 visible that the average time for an update is approximately 1046.8 $\mu$s +/- 116.8 $\mu$s. 
 The results are visualized using a boxplot in section \ref{sec:comparisson_of_priorityqueues}.
 
@@ -237,7 +237,7 @@ listing \ref{lst:benchmark_of_selfpq}.
     }
 \end{lstlisting}
 
-As seen listing \ref{lst:benchmark_of_selfpq} the initialization is removed for simplicity in the example. 
+As seen on listing \ref{lst:benchmark_of_selfpq} the initialization is removed for simplicity in the example. 
 So keep in mind that a new queue and timer are initialized every iteration before the benchmark. 
 In the example its visible that we use our \lstinline{retrieve()} method to get a specific 
 node from the queue. We then mutate a value on the node, and stop the timer. 
@@ -247,8 +247,7 @@ Afterwards the time is returned. Later in the benchmark, the returned time is be
 Data from the CSV file has been explored using a Python Notebook. 
 The results can be found on table \ref{tab:updated_times}. Be aware that the times are measured in microseconds. 
 
-The benchmark completed with an average of 0.409 $\mu$s +/- 0.754 $\mu$s, this can be seen on table \ref{tab:updated_times}.
-It is clear that much faster and more stable results from the updated algorithm are achieved. 
+The benchmark completed with an average of 0.409 $\mu$s +/- 0.754 $\mu$s, this can be seen on table \ref{tab:updated_times}. 
 In the section \ref{sec:comparisson_of_priorityqueues} a visualization of the data as 
 box plots and a comparison of the results will be discussed.
 
@@ -297,21 +296,13 @@ box plots and a comparison of the results will be discussed.
 
 
 % How much faster is the method than Javas
-The medians are used to calculate the percent increase in performance and the result is a 99.97\% increase. 
-%Since the optimized median is only at 300 ns, we can easily calculate that the percent in reduction is at 99.97\%.
+To compare the results of the two benchmarks, the medians in table \ref{tab:regular_times} and \ref{tab:updated_times} 
+are used to calculate the percent increase in performance and the result is a 99.97\% increase. 
 
-% \begin{figure}[ht]
-%     \begin{tikzpicture}
-%         \pie[rotate = 0, radius = 1.5, text = pin, explode = { 0.5, 0.5 }]
-%         {99.970877/Oiginal Time, 0.029123/Optimized Time}
-%     \end{tikzpicture}
-%     \caption{My Empty Figure}
-%     \label{fig:pie_chart}
-% \end{figure}
 These results can be explained by the complexity of both methods. It is known that a linear operation is defined as O(n) \cite{g4g}.
 A binary search has a complexity of O(log n) \cite{g4g-big-o}. 
 
-Now if we compare the results and complexities where n = 500000, which is the same size as our queues in the benchmark.
+Now if we compare the results and complexities where n = 500000, which is the same size as our queues in the benchmark. n = number of nodes in the array.
 \begin{table}[H] 
     \centering
     \begin{tabular}{ |l|r|r| }
@@ -327,19 +318,28 @@ Now if we compare the results and complexities where n = 500000, which is the sa
     \label{tab:ResultNComplexity}
 \end{table}
 
-It is visible that our results have increased in performance, with approximately the same amount as expected when looking at the complexity in accordance with the big O notation \cite{g4g-big-o} on table \ref{tab:ResultNComplexity}.
+It is visible that our results have increased in performance, with approximately 
+the same amount as expected when looking at the complexity in accordance with the 
+big O notation \cite{g4g-big-o} on table \ref{tab:ResultNComplexity}.
 %https://www.geeksforgeeks.org/linear-search/
 
 
 
 % Boxplots with comparrison
 \begin{figure}[H]
-\includegraphics[width=300pt]{boxplot_comparisson}
-\caption{Comparisson of the the Priorityqueues}
-\label{img:boxplot_comparisson}
+\includegraphics[width=300pt]{boxplot_orig}
+\caption{Boxplot of Java PriorityQueue}
+\label{img:boxplot_orig}
 \end{figure}
 
-On figure \ref{img:boxplot_comparisson} it is clear that the results is not only faster 
+% Boxplots with comparrison
+\begin{figure}[H]
+    \includegraphics[width=300pt]{boxplot_opt}
+    \caption{Boxplot of updateable PriorityQueue}
+    \label{img:boxplot_opt}
+\end{figure}
+
+Looking at figure \ref{img:boxplot_orig} and \ref{img:boxplot_opt} it is clear that the results is not only faster 
 but also a lot more stable. This is visible from the amount of outliers in the two boxplots. 
 On the machine which was used for benchmarking, Java's PriorityQueue results end up with a
 median of approximately 1 ms with outliers stretching as far as to 2 ms. In comparison to 
@@ -349,7 +349,7 @@ PriorityQueue reaches much faster and stable results.
 \section{Conclusion} % Cosby
 % Something about how much faster our queue is at updating
 Updating a value already placed in the queue in Java's PriorityQueue is relatively
-fast, with a median of 1.0301 ms searching for a node in a queue with a length of 
+fast, with a median of 1.03 ms searching for a node in a queue with a length of 
 500000. Our implementation however is coming in much faster at 300 ns, that is a 99.97\% 
 increase in performance. It is not certain that these numbers are precise, since we haven't 
 tested it on various machines, only one. But the performance increase does match the expected result 
@@ -362,6 +362,8 @@ real competitor to the Java standard library implementation.
 % Something about how our results are to be taken with a grain of salt, 
 % since our priority queue inserts elements linear, therefore it's much 
 % slower at everything else in Java's PriorityQueue. 
+
+\newpage
 
 \bibliographystyle{unsrt}
 \bibliography{references}
