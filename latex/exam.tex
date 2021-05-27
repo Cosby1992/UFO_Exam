@@ -52,7 +52,7 @@ That is fine on a small scale, but the complexity of O(n) can make upscaling a d
 We believe this can be optimized and that is why this article explores this subject.  
 
 We plan to use Peter Sestofts Mark5 benchmarking techniques from his article 
-"Microbenchmarks in Java and C\#" \cite{microbenchmarks} to benchnhmark the two 
+"Microbenchmarks in Java and C\#" \cite{microbenchmarks7-8} to benchnhmark the two 
 PriorityQueue classes. We will do seperate benchmarking with warmup iterations on 
 each of the implementations. Afterwards we will explore the data using a Python
 Notebook. Then we compare the results to explore our findings. 
@@ -72,10 +72,10 @@ compare the enqueueing or dequeueing performance times.
 % There's no way to find an element in a heap, but to go through all the 
 % elements, though pruning (Stop searching if a bigger node is reached) is possible. 
 % Therefore a list will be used to make search possible
-Java's PriorityQueue is implemented in a heap structure, this means that there is no way to quickly find an Object within.
+Java's PriorityQueue is implemented in a heap structure \cite{g4g_pq}, this means that there is no way to quickly find an Object within.
 Therefore it is necessary to do a linear iteration through the queue. This is made possible by 
 the iterator method inherited in the PriorityQueue class. What we explore is how much faster it would 
-be to use binary search in a sorted array, where the array is representing a queue instead.  
+be to use binary search \cite{g4g_bs} in a sorted array, where the array is representing a queue instead.  
 \subsection{Problem Statement}
 \begin{enumerate}
     \item How fast is Java's current implementation, when the task is to update a value within?
@@ -89,7 +89,7 @@ be to use binary search in a sorted array, where the array is representing a que
 This subsection will cover the preparation and execution of the benchmarks.
 It will also touch the subject of the timings in the two implementations
 of the PriorityQueue class. Peter Sestofts approach to microbenchmarking in 
-Java \cite{microbenchmarks} is used to benchmark the implementations. A combination of Mark5 and Mark3 
+Java \cite{microbenchmarks7-8} \cite{microbenchmarks5} is used to benchmark the implementations. A combination of Mark5 and Mark3 
 benchmarks with minor changes are used to generate the timing results. 
 To make benchmarks, a Timer class is necessary. We've designed the a simplest
 version possible to avoid interference from calculations in the Timer class.
@@ -134,7 +134,7 @@ The CSV files will be used to explore the data later.
 Measurements in the benchmark is done only on the time it takes to update 
 a value in the PriorityQueue. In listing \ref{lst:benchmarkiterations} we run a number of warmup iterations before running the
 benchmark. This is to make sure that Java's JIT\footnote{Just In Time} 
-compiler has already compiled all the code, before running the benchmarks, as described in Peter Sestofts article\cite{microbenchmarks}. 
+compiler has already compiled all the code, before running the benchmarks, as described in Peter Sestofts article \cite{microbenchmarks9-10}. 
 In the listing the method \lstinline{pQueueRun()} is running the benchmark, this will be described 
 in section \ref{sec:javabenchmark}. The \lstinline{tracker.addTime(long time)} 
 simply adds a time to a list that will later be written to a CSV file.
@@ -308,8 +308,8 @@ The medians are used to calculate the percent increase in performance and the re
 %     \caption{My Empty Figure}
 %     \label{fig:pie_chart}
 % \end{figure}
-These results can be explained by the complexity of both methods. It is known that a linear operation is defined as O(n).
-A binary search has a complexity of O(log n). 
+These results can be explained by the complexity of both methods. It is known that a linear operation is defined as O(n) \cite{g4g}.
+A binary search has a complexity of O(log n) \cite{g4g-big-o}. 
 
 Now if we compare the results and complexities where n = 500000, which is the same size as our queues in the benchmark.
 \begin{table}[H] 
@@ -320,14 +320,14 @@ Now if we compare the results and complexities where n = 500000, which is the sa
         \hline
         \thead{Linear O(n)}	    & 1030.1 $\mu$s     & 500000           \\
         \thead{Binary O(log n)}	& 0.3 $\mu$s	    & 5.699 	     \\
-        \thead{\% difference}	& 99.970877 \%	    & 99.998860 \%	 \\
+        \thead{\% difference}	&\cellcolor[HTML]{55FF55} 99.970877 \%	     & \cellcolor[HTML]{55FF55}99.998860 \%	 \\
         \hline
     \end{tabular}
     \caption{Result vs. complexity} 
     \label{tab:ResultNComplexity}
 \end{table}
 
-It is visible that our results have increased in performance, with approximately the same amount as expected when looking at the complexity in accordance with the big O notation on table \ref{tab:ResultNComplexity}.
+It is visible that our results have increased in performance, with approximately the same amount as expected when looking at the complexity in accordance with the big O notation \cite{g4g-big-o} on table \ref{tab:ResultNComplexity}.
 %https://www.geeksforgeeks.org/linear-search/
 
 
